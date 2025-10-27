@@ -1,0 +1,95 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 215 28% 17%;
+
+    --card: 40 33% 98%;
+    --card-foreground: 215 28% 17%;
+
+    --popover: 40 33% 98%;
+    --popover-foreground: 215 28% 17%;
+
+    --primary: 215 60% 20%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 180 47% 44%;
+    --secondary-foreground: 40 33% 98%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 28% 45%;
+
+    --accent: 12 69% 64%;
+    --accent-foreground: 40 33% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 215 28% 17%;
+
+    --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-cream text-navy font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold;
+  }
+  
+  .prose-custom {
+    @apply prose prose-lg md:prose-xl max-w-none;
+    @apply prose-headings:font-serif prose-headings:font-bold prose-headings:text-navy;
+    @apply prose-p:text-navy/90 prose-p:leading-relaxed;
+    @apply prose-a:text-teal prose-a:no-underline hover:prose-a:underline;
+    @apply prose-blockquote:border-l-teal prose-blockquote:text-navy/80 prose-blockquote:italic;
+    @apply prose-strong:text-navy;
+    @apply prose-code:text-navy prose-code:bg-light-gray prose-code:px-1 prose-code:py-0.5 prose-code:rounded;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-teal text-white font-medium py-2 px-4 rounded-md hover:bg-teal/90 transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-light-gray text-navy font-medium py-2 px-4 rounded-md hover:bg-light-gray/80 transition-colors;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .nav-link {
+    @apply text-navy/70 hover:text-navy transition-colors;
+  }
+}
+
+.story-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #39a6a3;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.story-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
