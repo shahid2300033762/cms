@@ -3,7 +3,6 @@ pipeline {
 
   options {
     timestamps()
-   
     buildDiscarder(logRotator(numToKeepStr: '20'))
     timeout(time: 30, unit: 'MINUTES')
   }
@@ -18,6 +17,7 @@ pipeline {
   }
 
   stages {
+
     stage('Diagnostics') {
       steps {
         script {
@@ -48,6 +48,7 @@ pipeline {
         }
       }
     }
+
     stage('Checkout') {
       steps {
         checkout scm
@@ -78,32 +79,28 @@ pipeline {
       }
     }
 
-   stage('Health Check') {
-    steps {
+    stage('Health Check') {
+      steps {
         script {
-            if (isUnix()) {
-                sh 'echo "Skipping strict health checks on Linux"'
-            } else {
-                bat 'powershell -Command "Start-Sleep -Seconds 5"'
-                bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%FRONTEND_PORT%/ -UseBasicParsing | Out-Null } Catch { Write-Host \"Frontend warning\" }"'
-                bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%BACKEND_PORT%/actuator/health -UseBasicParsing | Out-Null } Catch { Write-Host \"Backend warning\" }"'
-            }
-        }
-    }
-}
-
+          if (isUnix()) {
+            sh 'echo "Skipping Linux health checks"'
+          } else {
+            bat 'powershell -Command "Start-Sleep -Seconds 5"'
+            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%FRONTEND_PORT%/ -UseBasicParsing | Out-Null } Catch { Write-Host \"Frontend warning\" }"'
+            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%BACKEND_PORT%/actuator/health -UseBasicParsing | Out-Null } Catch { Write-Host \"Backend warning\" }"'
           }
         }
       }
     }
-  }
+
+  } // END stages
 
   post {
     success {
-      echo 'Deployment succeeded. Frontend at http://localhost:' + env.FRONTEND_PORT + ' Backend at http://localhost:' + env.BACKEND_PORT
+      echo "Deployment succeeded. Frontend: http://localhost:${env.FRONTEND_PORT}  Backend: http://localhost:${env.BACKEND_PORT}"
     }
     failure {
-      echo 'Deployment failed. Check build logs and container status.'
+      echo 'Deployment failed. Showing logs...'
       script {
         if (isUnix()) {
           sh 'docker ps -a'
@@ -116,3 +113,4 @@ pipeline {
     }
   }
 }
+
