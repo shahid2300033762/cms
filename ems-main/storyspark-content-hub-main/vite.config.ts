@@ -5,7 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/frontapp/" : "/",   // 👈 important for Tomcat
+  // Configure base path via env for flexibility; default to root
+  base: process.env.VITE_BASE_PATH ?? "/",
 
   server: {
     host: "::",

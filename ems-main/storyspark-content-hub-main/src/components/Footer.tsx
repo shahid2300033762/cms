@@ -11,9 +11,9 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center">
-              <span className="text-2xl font-serif font-bold text-white mr-1">Story</span>
-              <span className="text-2xl font-serif font-bold text-teal">Hub</span>
+            <Link to="/" className="flex items-baseline">
+              <span className="text-2xl font-serif font-bold text-white mr-2">Content</span>
+              <span className="text-2xl font-serif font-bold text-teal">Management System</span>
             </Link>
             <p className="mt-3 text-light-gray/80 text-sm">
               A platform for storytellers to share their ideas, insights, and expertise with the world.
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-light-gray/20 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-light-gray/60 text-sm">
-            &copy; {currentYear} StoryHub. All rights reserved.
+            &copy; {currentYear} Content Management System. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="#" className="text-light-gray/60 hover:text-white transition-colors">Privacy Policy</a>

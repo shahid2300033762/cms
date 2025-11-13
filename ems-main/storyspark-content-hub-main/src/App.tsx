@@ -22,7 +22,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      {/** Use Vite's BASE_URL for consistent routing in all modes **/}
+      <BrowserRouter basename={(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}>
         <AuthProvider>
           <Routes>
           <Route path="/" element={<Index />} />

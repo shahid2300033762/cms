@@ -19,7 +19,7 @@ const About = () => {
         <section className="bg-navy text-white py-16 md:py-24">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6">
-              About StoryHub
+              About Content Management System
             </h1>
             <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto">
               Empowering storytellers to share their ideas, insights, and expertise with the world.
@@ -34,7 +34,7 @@ const About = () => {
               <div>
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy mb-6">Our Mission</h2>
                 <p className="text-navy text-lg mb-4 leading-relaxed">
-                  At StoryHub, we believe that every person has a unique perspective worth sharing. Our mission is to create a platform that makes it easy for writers of all backgrounds to publish their stories, connect with readers, and build a community around their ideas.
+                  At Content Management System, we believe thoughtful tools help creators do their best work. Our mission is to make it effortless to publish, organize, and deliver content with clarity and control.
                 </p>
                 <p className="text-navy text-lg leading-relaxed">
                   We're committed to fostering an environment where quality content thrives, where writers can develop their craft, and where readers can discover stories that inform, inspire, and entertain.
@@ -55,7 +55,7 @@ const About = () => {
         {/* Features Section */}
         <section className="py-16 bg-light-gray/10">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy mb-12 text-center">Why Choose StoryHub?</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy mb-12 text-center">Why Choose Content Management System?</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">

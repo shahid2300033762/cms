@@ -5,6 +5,7 @@ import com.acme.app.service.UserService;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -12,8 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080"}, allowCredentials = "true")
-public class AuthController {
+    public class AuthController {
     private final UserService userService;
 
     public AuthController(UserService userService) {
@@ -40,8 +40,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
-        User created = userService.register(req.name, req.email, req.password);
-        return ResponseEntity.ok(Map.of("id", created.getId(), "name", created.getName(), "email", created.getEmail()));
+        try {
+            User created = userService.register(req.name, req.email, req.password);
+            return ResponseEntity.ok(Map.of("id", created.getId(), "name", created.getName(), "email", created.getEmail()));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(409).body(Map.of("error", e.getMessage()));
+        } catch (DataIntegrityViolationException e) { // race-condition safety
+            return ResponseEntity.status(409).body(Map.of("error", "Email already registered"));
+        }
     }
 
     @PostMapping("/login")

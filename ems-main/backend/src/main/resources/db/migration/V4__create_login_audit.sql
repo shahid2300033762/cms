@@ -1,0 +1,9 @@
+CREATE TABLE login_audit (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NULL,
+  email VARCHAR(255) NOT NULL,
+  name VARCHAR(100),
+  login_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  success BOOLEAN NOT NULL,
+  CONSTRAINT fk_login_audit_user FOREIGN KEY (user_id) REFERENCES users(id)
+);

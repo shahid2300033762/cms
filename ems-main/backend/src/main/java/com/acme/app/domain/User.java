@@ -1,6 +1,7 @@
 package com.acme.app.domain;
 
 import jakarta.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +25,9 @@ public class User {
     @Column(name = "bio", length = 1000)
     private String bio;
 
+    @Column(name = "last_login_at")
+    private Instant lastLoginAt;
+
     public User() {}
 
     public Long getId() { return id; }
@@ -38,6 +42,8 @@ public class User {
     public void setAvatar(String avatar) { this.avatar = avatar; }
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
+    public Instant getLastLoginAt() { return lastLoginAt; }
+    public void setLastLoginAt(Instant lastLoginAt) { this.lastLoginAt = lastLoginAt; }
 }
 
 

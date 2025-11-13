@@ -28,15 +28,15 @@ const Index = () => {
         <section className="py-10 md:py-16 container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-serif font-bold text-navy mb-4">Join Our Community of Storytellers</h2>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy mb-4 tracking-tight">Powerful Content Management, Beautifully Simple</h2>
               <p className="text-navy/80 mb-6">
-                StoryHub is more than just a blogging platform—it's a community where writers connect, grow, and inspire. 
-                Whether you're an established author or just starting your writing journey, there's a place for you here.
+                Content Management System is more than a platform—it’s a polished toolset to create, manage, and publish content with ease. 
+                Whether you’re a team or a solo creator, find a delightful workflow here.
               </p>
               <TagsCloud className="mb-6" />
             </div>
             <div className="bg-light-gray/30 p-8 rounded-lg">
-              <h3 className="text-xl font-semibold text-navy mb-4">Why Write on StoryHub?</h3>
+              <h3 className="text-xl font-semibold text-navy mb-4">Why Use Content Management System?</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <div className="bg-teal/20 p-2 rounded-full mr-3 mt-1">

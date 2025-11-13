@@ -1,0 +1,2 @@
+ALTER TABLE users
+  ADD COLUMN last_login_at TIMESTAMP(6) NULL DEFAULT NULL AFTER password_hash;

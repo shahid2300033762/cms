@@ -31,9 +31,9 @@ const Navbar: React.FC = () => {
     <header className={`bg-cream border-b border-light-gray/30 sticky top-0 z-50 ${isScrolled ? 'shadow-sm' : ''}`}>
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-serif font-bold text-navy mr-1">Story</span>
-            <span className="text-2xl font-serif font-bold text-teal">Hub</span>
+          <Link to="/" className="flex items-baseline hover:opacity-90 transition-opacity">
+            <span className="text-2xl md:text-3xl font-serif font-bold text-navy mr-2 tracking-tight">Content</span>
+            <span className="text-2xl md:text-3xl font-serif font-bold text-teal tracking-tight">Management System</span>
           </Link>
 
           {/* Desktop Navigation */}

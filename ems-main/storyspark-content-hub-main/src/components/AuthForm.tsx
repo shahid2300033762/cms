@@ -62,8 +62,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         </CardTitle>
         <CardDescription>
           {type === 'login' 
-            ? 'Sign in to your StoryHub account' 
-            : 'Join StoryHub to start sharing your stories'}
+            ? 'Sign in to your Content Management System account' 
+            : 'Join Content Management System to start managing content elegantly'}
         </CardDescription>
       </CardHeader>
       <CardContent>

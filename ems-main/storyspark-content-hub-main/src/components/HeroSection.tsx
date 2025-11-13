@@ -5,28 +5,27 @@ import { ArrowRight } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="bg-cream py-16 md:py-24">
+    <section className="bg-cream py-20 md:py-28">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight mb-4">
-              Share Your Story With The World
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight tracking-tight mb-4">
+              Elegant Content Management for Modern Teams
             </h1>
             <p className="text-xl text-navy/80 mb-8 leading-relaxed">
-              A platform where storytellers can create, publish, and engage with readers.
-              Join our community of writers and start sharing your unique perspective today.
+              Create, organize, and publish with confidence. A refined CMS experience that keeps your content flowing beautifully.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link 
                 to="/register" 
-                className="btn-primary flex items-center justify-center"
+                className="btn-primary flex items-center justify-center text-lg py-3 px-6"
               >
                 Start Writing
                 <ArrowRight size={18} className="ml-2" />
               </Link>
               <Link 
                 to="/posts" 
-                className="bg-white text-teal border-2 border-teal hover:bg-teal/10 font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center"
+                className="bg-white text-teal border-2 border-teal hover:bg-teal/10 font-medium py-3 px-6 rounded-md transition-colors flex items-center justify-center"
               >
                 Explore Articles
               </Link>
