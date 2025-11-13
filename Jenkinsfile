@@ -14,10 +14,14 @@ pipeline {
     COMPOSE_FILE = 'docker-compose.yml'
     FRONTEND_PORT = '8081'
     BACKEND_PORT  = '8082'
+
+    DOCKER_USER = 'YOUR_DOCKERHUB_USERNAME'
+    DOCKER_PASS = 'YOUR_DOCKERHUB_PASSWORD'
   }
 
   stages {
 
+    /* ------------------------------ */
     stage('Diagnostics') {
       steps {
         script {
@@ -37,6 +41,7 @@ pipeline {
       }
     }
 
+    /* ------------------------------ */
     stage('Pre-clean (down old stack)') {
       steps {
         script {
@@ -49,12 +54,14 @@ pipeline {
       }
     }
 
-    stage('Checkout') {
+    /* ------------------------------ */
+    stage('Checkout Source Code') {
       steps {
         checkout scm
       }
     }
 
+    /* ------------------------------ */
     stage('Build Docker Images') {
       steps {
         script {
@@ -67,6 +74,24 @@ pipeline {
       }
     }
 
+    /* ------------------------------ */
+    stage('Push to Docker Hub') {
+      steps {
+        script {
+          if (!isUnix()) {
+            bat """
+              docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+              docker tag ems-main-backend %DOCKER_USER%/cms-backend:latest
+              docker tag ems-main-frontend %DOCKER_USER%/cms-frontend:latest
+              docker push %DOCKER_USER%/cms-backend:latest
+              docker push %DOCKER_USER%/cms-frontend:latest
+            """
+          }
+        }
+      }
+    }
+
+    /* ------------------------------ */
     stage('Deploy (Docker Compose Up)') {
       steps {
         script {
@@ -79,6 +104,7 @@ pipeline {
       }
     }
 
+    /* ------------------------------ */
     stage('Health Check') {
       steps {
         script {
@@ -86,8 +112,12 @@ pipeline {
             sh 'echo "Skipping Linux health checks"'
           } else {
             bat 'powershell -Command "Start-Sleep -Seconds 5"'
-            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%FRONTEND_PORT%/ -UseBasicParsing | Out-Null } Catch { Write-Host \"Frontend warning\" }"'
-            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%BACKEND_PORT%/actuator/health -UseBasicParsing | Out-Null } Catch { Write-Host \"Backend warning\" }"'
+
+            // Frontend Health
+            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%FRONTEND_PORT%/ -UseBasicParsing | Out-Null; Write-Host \'Frontend OK\'; } Catch { Write-Host \'Frontend warning\' }"'
+
+            // Backend Health
+            bat 'powershell -Command "Try { Invoke-WebRequest http://localhost:%BACKEND_PORT%/actuator/health -UseBasicParsing | Out-Null; Write-Host \'Backend OK\'; } Catch { Write-Host \'Backend warning\' }"'
           }
         }
       }
@@ -95,12 +125,16 @@ pipeline {
 
   } // END stages
 
+  /* ------------------------------ */
   post {
     success {
-      echo "Deployment succeeded. Frontend: http://localhost:${env.FRONTEND_PORT}  Backend: http://localhost:${env.BACKEND_PORT}"
+      echo "🎉 Deployment SUCCESS!"
+      echo "Frontend → http://localhost:${env.FRONTEND_PORT}"
+      echo "Backend  → http://localhost:${env.BACKEND_PORT}"
     }
+
     failure {
-      echo 'Deployment failed. Showing logs...'
+      echo '❌ Deployment failed. Showing container logs...'
       script {
         if (isUnix()) {
           sh 'docker ps -a'
@@ -112,5 +146,7 @@ pipeline {
       }
     }
   }
+
 }
+
 
