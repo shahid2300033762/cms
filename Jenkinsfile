@@ -87,7 +87,8 @@ pipeline {
           } else {
             // Windows PowerShell health checks
             bat 'powershell -Command "Start-Sleep -Seconds 5; $r = Invoke-WebRequest http://localhost:%FRONTEND_PORT%/ -UseBasicParsing; if($r.StatusCode -ge 400){ exit 1 }"'
-            bat 'powershell -Command "Invoke-WebRequest http://localhost:%BACKEND_PORT%/v3/api-docs -UseBasicParsing | Out-Null"'
+           bat 'powershell -Command "Invoke-WebRequest http://localhost:%BACKEND_PORT%/actuator/health -UseBasicParsing | Out-Null"'
+
           }
         }
       }
